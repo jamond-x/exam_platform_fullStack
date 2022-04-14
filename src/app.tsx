@@ -2,12 +2,11 @@ import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { SettingDrawer } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
-import { history, Link } from 'umi';
+import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 // import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { currentUser, currentUser as queryCurrentUser, verifyToken } from './services/request/api';
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -76,34 +75,39 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     footerRender: () => <Footer />,
     onPageChange: async () => {
       const { location } = history;
-      // 如果没有登录，重定向到 login
       const token = window.localStorage.getItem('token');
-      if (initialState?.currentUser || token) {
-        console.log(4444444444);
-        history.push('/');
-      } else if (!initialState?.currentUser && !token && location.pathname !== loginPath) {
-        console.log(111111);
+      // if  没有登录信息 且 不在登录页面
+      // 跳转到登录页面
 
+      if (!initialState?.currentUser && !token && location.pathname !== loginPath) {
         history.push(loginPath);
         return;
+      }
+
+      // if  有登录信息：账户信息 或 token
+      // if  有账户信息 且 在登录页 那么跳转至欢迎页
+      // if  没有账户信息 但有 token  那么自动验证token 有效去欢迎页 无则去登录页
+      else if (initialState?.currentUser && location.pathname === loginPath) {
+        history.push('/welcome');
+        return;
       } else if (!initialState?.currentUser && token) {
-        // TODO:自动验证token
         const res = await verifyToken(token as string);
         if (res.code === '0') {
           const user = await currentUser(res.data?.id as string);
-          if (user.code === '0') {
-            await setInitialState((s) => ({
-              ...s,
-              currentUser: user.data,
-            }));
-            console.log(222222);
-            history.push('/'); // 死循环了 ！！！！
+          await setInitialState((s) => ({
+            ...s,
+            currentUser: user.data,
+          }));
+          if (location.pathname === loginPath) {
+            history.push('/welcome');
           }
+          return;
         } else {
-          console.log(333333);
-          history.push(loginPath);
+          if (location.pathname != loginPath) {
+            history.push(loginPath);
+          }
+          return;
         }
-        return;
       }
     },
     links: isDev
