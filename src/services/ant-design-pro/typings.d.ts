@@ -5,8 +5,12 @@ declare namespace API {
   type CurrentUser = {
     name?: string;
     avatar?: string;
-    userid?: string;
+    id?: string;
     email?: string;
+    userid?: string;
+    access?: string;
+    description?: string;
+    gender?: string;
     signature?: string;
     title?: string;
     group?: string;
@@ -14,7 +18,6 @@ declare namespace API {
     notifyCount?: number;
     unreadCount?: number;
     country?: string;
-    access?: string;
     geographic?: {
       province?: { label?: string; key?: string };
       city?: { label?: string; key?: string };
@@ -23,7 +26,15 @@ declare namespace API {
     phone?: string;
   };
 
+  // type LoginResult = {
+  //   status?: string;
+  //   type?: string;
+  //   currentAuthority?: string;
+  // };
   type LoginResult = {
+    code?: string;
+    msg?: string;
+    data?: any; // 待改变
     status?: string;
     type?: string;
     currentAuthority?: string;
@@ -62,7 +73,7 @@ declare namespace API {
   };
 
   type LoginParams = {
-    username?: string;
+    id?: string;
     password?: string;
     autoLogin?: boolean;
     type?: string;

@@ -126,7 +126,7 @@ export default {
         type,
         currentAuthority: 'admin',
       });
-      access = 'admin';
+      access = 'admin'; // 破案了  在这儿啊！！！！
       return;
     }
     if (password === 'ant.design' && username === 'user') {
@@ -156,7 +156,7 @@ export default {
     access = 'guest';
   },
   'POST /api/login/outLogin': (req: Request, res: Response) => {
-    access = '';
+    access = ''; // 权限控制！
     res.send({ data: {}, success: true });
   },
   'POST /api/register': (req: Request, res: Response) => {

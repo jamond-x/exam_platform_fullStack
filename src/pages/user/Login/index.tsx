@@ -11,8 +11,11 @@ import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
 import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
+// import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import { login_ } from '@/services/request/api';
+import { useAccess } from 'umi';
+import { Restful } from '@/services/request/types';
 
 import styles from './index.less';
 
@@ -33,24 +36,43 @@ const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
+  const access = useAccess();
 
   const intl = useIntl();
 
   const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
+    const userInfo: API.CurrentUser | undefined = await initialState?.fetchUserInfo?.();
+    console.log(userInfo);
+
     if (userInfo) {
       await setInitialState((s) => ({
         ...s,
         currentUser: userInfo,
       }));
+      console.log('设置成功！');
+      console.log(initialState?.currentUser);
     }
+
+    console.log('-----------after  get initial currentUser');
+    console.log(initialState?.currentUser);
   };
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({ ...values, type });
-      if (msg.status === 'ok') {
+      // const msg = await login_({ ...values, type });
+      const msg: Restful<{ id: string; token: string }> = await login_({ ...values });
+
+      // if (msg.status === 'ok') {
+      console.log(msg);
+
+      initialState?.setUserId?.(msg.data?.id as string);
+
+      if (msg.code == 0) {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+
+        // access.isLogin = true;
+        window.localStorage.setItem('token', msg.data?.token as string);
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
@@ -61,12 +83,17 @@ const Login: React.FC = () => {
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query as { redirect: string };
-        history.push(redirect || '/');
+        console.log(redirect);
+
+        history.push('/');
         return;
       }
       console.log(msg);
       // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
+      setUserLoginState({
+        status: 'error', // ?
+        type: 'account',
+      });
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
@@ -84,9 +111,15 @@ const Login: React.FC = () => {
       </div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
-          subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
+          logo={
+            <img
+              alt="logo"
+              src="https://cdn.jsdelivr.net/gh/jamond-x/public-resources/svg/undraw_book_lover_re_rwjy.svg"
+            />
+          }
+          title="紫沁山考试"
+          // subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
+          subTitle="现代考试智能解决方案"
           initialValues={{
             autoLogin: true,
           }}
@@ -125,21 +158,21 @@ const Login: React.FC = () => {
             <LoginMessage
               content={intl.formatMessage({
                 id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/ant.design)',
+                defaultMessage: '账户或密码错误',
               })}
             />
           )}
           {type === 'account' && (
             <>
               <ProFormText
-                name="username"
+                name="id"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={styles.prefixIcon} />,
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.username.placeholder',
-                  defaultMessage: '用户名: admin or user',
+                  defaultMessage: '用户名: user',
                 })}
                 rules={[
                   {
@@ -161,7 +194,7 @@ const Login: React.FC = () => {
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.password.placeholder',
-                  defaultMessage: '密码: ant.design',
+                  defaultMessage: '密码:',
                 })}
                 rules={[
                   {
@@ -265,7 +298,8 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
+            {/* name="autoLogin" */}
+            <ProFormCheckbox noStyle>
               <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
             </ProFormCheckbox>
             <a

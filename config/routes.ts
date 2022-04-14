@@ -43,6 +43,11 @@
     ],
   },
   {
+    path: '/profile',
+    name: 'account.center',
+    component: './user/Profile',
+  },
+  {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',
