@@ -92,7 +92,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         return;
       } else if (!initialState?.currentUser && token) {
         const res = await verifyToken(token as string);
-        if (res.code === '0') {
+        if (res && res.code === '0') {
           const user = await currentUser(res.data?.id as string);
           await setInitialState((s) => ({
             ...s,
