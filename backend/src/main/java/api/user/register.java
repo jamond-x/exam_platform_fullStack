@@ -1,0 +1,47 @@
+package api.user;
+
+import DAO.Operate;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.Token;
+import entity.User;
+import utils.Restful;
+import utils.token.ProcessToken;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+@WebServlet(name = "register", value = "/register")
+public class register extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        BufferedReader reader = request.getReader();
+        String line = null;
+        String json = "";
+        while ((line = reader.readLine()) != null){
+            json += line;
+        }
+        ObjectMapper om = new ObjectMapper();
+        User user = om.readValue(json, User.class);
+        Operate op = new Operate();
+        String resJson = "";
+        try {
+            boolean res = op.signup(user.getId(), user.getPassword(), user.getEmail());
+                String jwt =  ProcessToken.dispatchToken(user.getId(), ProcessToken.minute*1); // token 开发时期默认1分钟过期
+                resJson = Restful.RestfulJson(Restful.CODE_ZERO,"注册成功！",new Token(jwt,user.getId()));  // 给token
+                op.updateToken(user.getId(),jwt,true);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            resJson = Restful.RestfulJson(Restful.CODE_ONE,"注册失败！",new Token("null","null"));
+        }
+        response.setContentType("application/json;charset=utf-8");
+        response.getWriter().write(resJson);
+    }
+}
