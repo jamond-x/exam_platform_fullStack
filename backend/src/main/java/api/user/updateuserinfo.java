@@ -3,6 +3,7 @@ package api.user;
 import DAO.Operate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.User;
+import utils.ParseRequest;
 import utils.Restful;
 
 import javax.servlet.*;
@@ -20,14 +21,7 @@ public class updateuserinfo extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BufferedReader reader = request.getReader();
-        String line = null;
-        String json = "";
-        while ((line = reader.readLine()) != null){
-            json += line;
-        }
-        ObjectMapper om = new ObjectMapper();
-        User user = om.readValue(json, User.class);
+        User user = ParseRequest.get(request, User.class);
         Operate op = new Operate();
         String resJson = "";
         try {
