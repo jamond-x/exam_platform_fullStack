@@ -38,7 +38,6 @@ public class tokenverify extends HttpServlet {
             e.printStackTrace();
             response.setStatus(500);
         }
-        response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(resJson);
     }
 }

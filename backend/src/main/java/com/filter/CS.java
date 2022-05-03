@@ -22,10 +22,10 @@ public class CS implements Filter{
 
         HttpServletResponse resp=(HttpServletResponse) response;
         resp.setHeader("Access-Control-Allow-Headers", "*");
-        //允许所有的方法访问  如post , get方法
         resp.setHeader("Access-Control-Allow-Method", "*");
         //目前开发环境允许所有的域
         resp.setHeader("Access-Control-Allow-Origin","*");
+        resp.setContentType("application/json;charset=utf-8");
         chain.doFilter(request, resp);
     }
 

@@ -34,7 +34,6 @@ public class logout extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(resJson);
     }
 }

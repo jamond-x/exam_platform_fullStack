@@ -35,7 +35,6 @@ public class register extends HttpServlet {
             e.printStackTrace();
 //            resJson = Restful.RestfulJson(Restful.CODE_ONE,"注册失败！",new Token("null","null"));
         }
-        response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(resJson);
     }
 }
