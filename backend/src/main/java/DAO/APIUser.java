@@ -3,7 +3,7 @@ package DAO;
 import entity.Token;
 import entity.User;
 
-public interface ApiUser {
+public interface APIUser {
     public boolean login(String id, String pw) throws Exception;
     public boolean signup(String id, String pw, String email)throws Exception;
     public boolean updateToken(String userId, String token, boolean isUpdate) throws Exception;

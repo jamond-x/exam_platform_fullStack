@@ -1,6 +1,5 @@
 package DAO;
 
-import database.DBInit;
 import database.DBPool;
 import entity.Token;
 import entity.User;
@@ -10,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Operate implements ApiUser {
+public class Operate implements APIUser {
 //    private DBInit dbInstance = null;
     private DBPool dbInstance = null;
 
