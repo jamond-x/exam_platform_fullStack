@@ -144,4 +144,24 @@ public class QuestionOP implements APIQuestion {
     }
     return null;
   }
+
+  @Override
+  public boolean delete(String id) throws Exception {
+    init();
+    String sql = "DELETE FROM `questionbank` WHERE id = ?";
+    this.statement = this.con.prepareStatement(sql);
+    this.statement.setString(1, id);
+    try{
+      boolean res = this.statement.execute();
+      if(!res){
+         return true;
+      }
+    }catch (Exception e){
+      e.printStackTrace();
+      return false;
+    }finally {
+      this.con.close();
+    }
+    return false;
+  }
 }
