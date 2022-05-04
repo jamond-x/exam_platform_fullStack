@@ -33,6 +33,18 @@ public class Question {
     this.answer = answer;
   }
 
+  public Question(String id, int typeId, String description, String optionA, String optionB, String optionC, String optionD, String answer) {
+    this.id = id;
+    this.typeId = typeId;
+    this.description = description;
+    this.optionA = optionA;
+    this.optionB = optionB;
+    this.optionC = optionC;
+    this.optionD = optionD;
+    this.answer = answer;
+  }
+
+
   public String getId() {
     return id;
   }

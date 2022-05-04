@@ -30,7 +30,6 @@ public class login extends HttpServlet {
       System.out.println(pwMd5);
         try {
             boolean res = op.login(user.getId(), pwMd5);
-
             if(res){
                 String jwt =  ProcessToken.dispatchToken(user.getId(), ProcessToken.minute*300); // token 开发时期默认1分钟过期
                 resJson = Restful.RestfulJson(Restful.CODE_ZERO,"登录成功！",new Token(jwt,user.getId()));  // 给token

@@ -43,13 +43,13 @@ public class QuestionOP implements APIQuestion {
         question = new Question(
           res.getString("id"),
           Integer.parseInt(res.getString("typeId")),
+          res.getString("name"),
           res.getString("description"),
           res.getString("optionA"),
           res.getString("optionB"),
           res.getString("optionC"),
           res.getString("optionD"),
-          res.getString("answer"),
-          res.getString("name")
+          res.getString("answer")
         );
       }
       return question == null ? null:question;
@@ -74,13 +74,13 @@ public class QuestionOP implements APIQuestion {
         questionSet.add(new Question(
           res.getString("id"),
           Integer.parseInt(res.getString("typeId")),
+          res.getString("name"),
           res.getString("description"),
           res.getString("optionA"),
           res.getString("optionB"),
           res.getString("optionC"),
           res.getString("optionD"),
-          res.getString("answer"),
-          res.getString("name")
+          res.getString("answer")
         ));
       }
       return questionSet == null ? null:questionSet;
@@ -167,12 +167,33 @@ public class QuestionOP implements APIQuestion {
   }
 
   public HashSet<Question> randomQuestion(int count) throws SQLException {
+    init();
     String sql = "SELECT * FROM questionbank ORDER BY rand() LIMIT ?";
     this.statement = this.con.prepareStatement(sql);
     this.statement.setInt(1, count);
+    try{
+      HashSet<Question> set = new HashSet<Question>();
+      ResultSet res = this.statement.executeQuery();
+      while(res.next()){
+        set.add(new Question(
+          res.getString("id"),
+          Integer.parseInt(res.getString("typeId")),
+          res.getString("description"),
+          res.getString("optionA"),
+          res.getString("optionB"),
+          res.getString("optionC"),
+          res.getString("optionD"),
+          res.getString("answer")
+        ));
 
-
-    return null;
+      }
+      return set;
+    }catch(Exception e){
+      e.printStackTrace();
+      return null;
+    }finally {
+      this.con.close();
+    }
   }
 
 
