@@ -2,6 +2,7 @@ package api.user;
 
 import DAO.Operate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.hash.Hashing;
 import entity.Token;
 import entity.User;
 import utils.ParseRequest;
@@ -24,10 +25,11 @@ public class register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = ParseRequest.get(request, User.class);
+        String pwMd5 =  Hashing.md5().hashBytes(user.getPassword().getBytes("UTF-8")).toString();
         Operate op = new Operate();
         String resJson = "";
         try {
-            boolean res = op.signup(user.getId(), user.getPassword(), user.getEmail());
+            boolean res = op.signup(user.getId(), pwMd5, user.getEmail());
                 String jwt =  ProcessToken.dispatchToken(user.getId(), ProcessToken.minute*1); // token 开发时期默认1分钟过期
                 resJson = Restful.RestfulJson(Restful.CODE_ZERO,"注册成功！",new Token(jwt,user.getId()));  // 给token
                 op.updateToken(user.getId(),jwt,true);

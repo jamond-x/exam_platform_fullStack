@@ -8,6 +8,7 @@ import entity.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 
 public class QuestionOP implements APIQuestion {
@@ -164,4 +165,15 @@ public class QuestionOP implements APIQuestion {
     }
     return false;
   }
+
+  public HashSet<Question> randomQuestion(int count) throws SQLException {
+    String sql = "SELECT * FROM questionbank ORDER BY rand() LIMIT ?";
+    this.statement = this.con.prepareStatement(sql);
+    this.statement.setInt(1, count);
+
+
+    return null;
+  }
+
+
 }

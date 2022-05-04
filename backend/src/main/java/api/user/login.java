@@ -1,7 +1,7 @@
 package api.user;
 
 import DAO.Operate;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.hash.Hashing;
 import entity.Token;
 import entity.User;
 import utils.ParseRequest;
@@ -11,8 +11,8 @@ import utils.token.ProcessToken;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @WebServlet(name = "login", value = "/login")
 public class login extends HttpServlet {
@@ -26,8 +26,11 @@ public class login extends HttpServlet {
         User user = ParseRequest.get(request, User.class);
         Operate op = new Operate();
         String resJson = "";
+        String pwMd5 =  Hashing.md5().hashBytes(user.getPassword().getBytes("UTF-8")).toString();
+      System.out.println(pwMd5);
         try {
-            boolean res = op.login(user.getId(), user.getPassword());
+            boolean res = op.login(user.getId(), pwMd5);
+
             if(res){
                 String jwt =  ProcessToken.dispatchToken(user.getId(), ProcessToken.minute*300); // token 开发时期默认1分钟过期
                 resJson = Restful.RestfulJson(Restful.CODE_ZERO,"登录成功！",new Token(jwt,user.getId()));  // 给token
