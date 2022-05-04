@@ -8,6 +8,7 @@ import utils.token.ProcessToken;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashSet;
 
 public class Operate implements APIUser {
 //    private DBInit dbInstance = null;
@@ -121,7 +122,7 @@ public class Operate implements APIUser {
                     res.getString("description"),
                     res.getString("avatar"),
                     res.getString("email"),
-                    res.getString("access")
+                    res.getString("admin")
                     );
         }
         return user == null ? null:user;
@@ -160,4 +161,58 @@ public class Operate implements APIUser {
     public boolean verifyToken(Token token) throws Exception {
         return ProcessToken.verifyToken(token.getToken());
     }
+
+  @Override
+  public boolean isAdmin(String id) throws Exception {
+      init();
+      String sql = "SELECT admin FROM users WHERE id=?";
+      this.statement = this.con.prepareStatement(sql);
+      this.statement.setString(1,id);
+      try{
+        ResultSet res = this.statement.executeQuery();
+        if(res.next()){
+          if( res.getString("admin").equals("1")){
+            return true;
+          }else {
+            return false;
+          }
+        }else{
+          return false;
+        }
+      }catch (Exception e)
+      {
+        e.printStackTrace();
+        return false;
+      }finally {
+        this.con.close();
+      }
+  }
+
+  @Override
+  public HashSet<User> allUsers() throws Exception {
+      init();
+      HashSet<User> resSet = new HashSet<>();
+      String sql = "SELECT * FROM users";
+      this.statement = this.con.prepareStatement(sql);
+      try{
+        ResultSet res = this.statement.executeQuery();
+        while(res.next()){
+          resSet.add(new User(
+            res.getString("id"),
+            res.getString("name"),
+            res.getString("gender"),
+            res.getString("description"),
+            res.getString("avatar"),
+            res.getString("email"),
+            res.getString("admin")
+          ));
+        }
+        return resSet;
+      }catch (Exception e){
+        e.printStackTrace();
+        return null;
+      }finally {
+        this.con.close();
+      }
+  }
 }

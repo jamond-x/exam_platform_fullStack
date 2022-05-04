@@ -76,10 +76,10 @@ public class Question {
       ", typeId=" + typeId +
       ", name='" + name + '\'' +
       ", description='" + description + '\'' +
-      ", A='" + optionA + '\'' +
-      ", B='" + optionB + '\'' +
-      ", C='" + optionC + '\'' +
-      ", D='" + optionD + '\'' +
+      ", optionA='" + optionA + '\'' +
+      ", optionB='" + optionB + '\'' +
+      ", optionC='" + optionC + '\'' +
+      ", optionD='" + optionD + '\'' +
       ", answer='" + answer + '\'' +
       '}';
   }
