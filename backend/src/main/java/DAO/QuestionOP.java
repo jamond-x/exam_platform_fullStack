@@ -115,4 +115,33 @@ public class QuestionOP implements APIQuestion {
     }
     return null;
   }
+
+  @Override
+  public Question add(Question question) throws Exception {
+    init();
+//    String sql = "INSERT INTO `questionbank`  VALUES('100009', '测试题目', '107', '选项A', '选项B', '选项C', '选项D', 'A')";
+    String sql = "INSERT INTO questionbank(id,description,typeId,optionA,optionB,optionC,optionD,answer)"+  "  VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+    try{
+      this.statement = this.con.prepareStatement(sql);
+      this.statement.setString(1,question.getId());
+      this.statement.setString(2,question.getDescription());
+      this.statement.setString(3,String.valueOf(question.getTypeId()));
+      this.statement.setString(4,question.getOptionA());
+      this.statement.setString(5,question.getOptionB());
+      this.statement.setString(6,question.getOptionC());
+      this.statement.setString(7,question.getOptionD());
+      this.statement.setString(8,question.getAnswer());
+      System.out.println(sql);
+      boolean res =  this.statement.execute();
+      if(!res){
+        return question;
+      }
+    }catch (Exception e){
+      e.printStackTrace();
+      return null;
+    }finally {
+      this.con.close();
+    }
+    return null;
+  }
 }

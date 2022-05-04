@@ -5,34 +5,13 @@ public class Question {
   private int typeId;
   private String name;
   private String description;
-  private String A;
-  private String B;
-  private String C;
-  private String D;
+  private String optionA;
+  private String optionB;
+  private String optionC;
+  private String optionD;
   private String answer;
 
   public Question(){};
-
-  public Question(String id, int typeId, String description, String a, String b, String c, String d, String answer, String name) {
-    this.id = id;
-    this.typeId = typeId;
-    this.description = description;
-    A = a;
-    B = b;
-    C = c;
-    D = d;
-    this.answer = answer;
-    this.name = name;
-  }
-
-  public Question(String id, int typeId, String description, String a, String b, String answer) {
-    this.id = id;
-    this.typeId = typeId;
-    this.description = description;
-    A = a;
-    B = b;
-    this.answer = answer;
-  }
 
   public Question(String id) {
     this.id = id;
@@ -40,6 +19,18 @@ public class Question {
 
   public Question(int typeId) {
     this.typeId = typeId;
+  }
+
+  public Question(String id, int typeId, String name, String description, String optionA, String optionB, String optionC, String optionD, String answer) {
+    this.id = id;
+    this.typeId = typeId;
+    this.name = name;
+    this.description = description;
+    this.optionA = optionA;
+    this.optionB = optionB;
+    this.optionC = optionC;
+    this.optionD = optionD;
+    this.answer = answer;
   }
 
   public String getId() {
@@ -58,20 +49,20 @@ public class Question {
     return description;
   }
 
-  public String getA() {
-    return A;
+  public String getOptionA() {
+    return optionA;
   }
 
-  public String getB() {
-    return B;
+  public String getOptionB() {
+    return optionB;
   }
 
-  public String getC() {
-    return C;
+  public String getOptionC() {
+    return optionC;
   }
 
-  public String getD() {
-    return D;
+  public String getOptionD() {
+    return optionD;
   }
 
   public String getAnswer() {
@@ -85,10 +76,10 @@ public class Question {
       ", typeId=" + typeId +
       ", name='" + name + '\'' +
       ", description='" + description + '\'' +
-      ", A='" + A + '\'' +
-      ", B='" + B + '\'' +
-      ", C='" + C + '\'' +
-      ", D='" + D + '\'' +
+      ", A='" + optionA + '\'' +
+      ", B='" + optionB + '\'' +
+      ", C='" + optionC + '\'' +
+      ", D='" + optionD + '\'' +
       ", answer='" + answer + '\'' +
       '}';
   }

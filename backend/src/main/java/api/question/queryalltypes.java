@@ -1,8 +1,7 @@
 package api.question;
 
 import DAO.QuestionOP;
-import entity.Question;
-import utils.ParseRequest;
+import entity.QuestionType;
 import utils.Restful;
 
 import javax.servlet.*;
@@ -11,20 +10,19 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashSet;
 
-@WebServlet(name = "query-question/byType", value = "/query-question/byType")
-public class queryquestionbyType extends HttpServlet {
+@WebServlet(name = "query-all-types", value = "/query-all-types")
+public class queryalltypes extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    doPost(request,response);
+    doPost(request, response);
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    Question qs = ParseRequest.get(request, Question.class);
     String res = "";
-    QuestionOP op = new QuestionOP();
     try{
-      HashSet<Question> resSet = op.queryByTypeId(String.valueOf(qs.getTypeId()));
+      QuestionOP op = new QuestionOP();
+      HashSet<QuestionType> resSet = op.queryAllTypes();
       if(resSet != null){
         res = Restful.RestfulJson(Restful.CODE_ZERO,"查询成功！",resSet);
       }else{

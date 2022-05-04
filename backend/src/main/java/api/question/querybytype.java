@@ -1,9 +1,7 @@
 package api.question;
 
-import DAO.Operate;
 import DAO.QuestionOP;
 import entity.Question;
-import entity.User;
 import utils.ParseRequest;
 import utils.Restful;
 
@@ -11,9 +9,10 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.HashSet;
 
-@WebServlet(name = "query-question", value = "/query-question")
-public class queryquestion extends HttpServlet {
+@WebServlet(name = "query-by-type", value = "/query-by-type")
+public class querybytype extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     doPost(request,response);
@@ -25,12 +24,11 @@ public class queryquestion extends HttpServlet {
     String res = "";
     QuestionOP op = new QuestionOP();
     try{
-      Question question = op.queryById(qs.getId());
-      System.out.println(question.toString());
-      if(question == null){
-        res = Restful.RestfulJson(Restful.CODE_ONE,"查询失败", null);
-      }else {
-        res = Restful.RestfulJson(Restful.CODE_ZERO,"查询成功！",question);
+      HashSet<Question> resSet = op.queryByTypeId(String.valueOf(qs.getTypeId()));
+      if(resSet != null){
+        res = Restful.RestfulJson(Restful.CODE_ZERO,"查询成功！",resSet);
+      }else{
+        res = Restful.RestfulJson(Restful.CODE_ONE,"查询失败！",null);
       }
     }catch (Exception e){
       e.printStackTrace();

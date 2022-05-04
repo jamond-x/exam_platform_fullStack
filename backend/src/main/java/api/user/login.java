@@ -29,7 +29,7 @@ public class login extends HttpServlet {
         try {
             boolean res = op.login(user.getId(), user.getPassword());
             if(res){
-                String jwt =  ProcessToken.dispatchToken(user.getId(), ProcessToken.minute*30); // token 开发时期默认1分钟过期
+                String jwt =  ProcessToken.dispatchToken(user.getId(), ProcessToken.minute*300); // token 开发时期默认1分钟过期
                 resJson = Restful.RestfulJson(Restful.CODE_ZERO,"登录成功！",new Token(jwt,user.getId()));  // 给token
                 op.updateToken(user.getId(),jwt,true);
             }else {
