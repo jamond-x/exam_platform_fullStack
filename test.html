@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <button onclick="one()">登录接口测试</button>
+    <button onclick="two()">其他接口测试</button>
+    <button onclick="three()">token 测试</button>
+    <script>
+      function one() {
+        axios
+          .post('http://localhost:8080/api/login', { id: '1001', password: 'pw' })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
+      function two() {
+        axios
+          .post('http://localhost:8080/api/admin/all-users')
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      // http://localhost:8080/api/admin/all-users
+      // http://localhost:8080/api/token/verify
+      function three() {
+        axios
+          .post('http://localhost:8080/api/admin/all-users', {
+            token:
+              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEwMDEiLCJleHAiOjE2NDk5MDczNDh9.d62KDRTS5PO3ksioxkdMrgiNXcfDh93ibA5fi_myvkk',
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    </script>
+  </body>
+</html>

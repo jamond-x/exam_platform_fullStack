@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
     <filter>
       <filter-name>AllowOrigin</filter-name>
       <filter-class>com.filter.CORS</filter-class>
@@ -12,23 +13,14 @@
       <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-<!--    <filter>-->
-<!--      <filter-name>Verify</filter-name>-->
-<!--      <filter-class>com.filter.Verify</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--      <filter-name>Verify</filter-name>-->
-<!--      <url-pattern>/*</url-pattern>-->
-<!--    </filter-mapping>-->
+    <filter>
+      <filter-name>Verify</filter-name>
+      <filter-class>com.filter.Verify</filter-class>
+    </filter>
+    <filter-mapping>
+      <filter-name>Verify</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-
-<!--    <filter>-->
-<!--        <filter-name>webFilter</filter-name>-->
-<!--        <filter-class>com.filter.Authentication</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>webFilter</filter-name>-->
-<!--        <url-pattern>/admin/*</url-pattern>-->
-<!--    </filter-mapping>-->
 
 </web-app>
