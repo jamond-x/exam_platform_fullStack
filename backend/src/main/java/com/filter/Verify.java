@@ -1,6 +1,6 @@
 package com.filter;
 
-import DAO.Operate;
+
 import utils.Restful;
 import utils.token.ProcessToken;
 
@@ -16,7 +16,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName = "Verify")
+
 public class Verify implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -26,7 +26,7 @@ public class Verify implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-      System.out.println("filter Verify");
+      System.out.println("权限过滤器");
       HttpServletRequest rq = (HttpServletRequest) request;
       HttpServletResponse res = (HttpServletResponse) response;
       String url = rq.getRequestURI();
@@ -37,13 +37,11 @@ public class Verify implements Filter {
 
       if(!urlSet.contains(url)){
         String token = rq.getHeader("token");
-        System.out.println(token);
-        if(!ProcessToken.verifyToken(token)){
-          res.setStatus(401);
+        if(token == null || !ProcessToken.verifyToken(token)){
           res.getWriter().write(Restful.RestfulJson(Restful.CODE_ONE, "token失效，请重新登录！",null));
 //          return;
         }
       }
-      chain.doFilter(rq, res);
+      chain.doFilter(request, response);
     }
 }
