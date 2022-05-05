@@ -38,6 +38,5 @@ public class randomquestion extends HttpServlet {
     }
     response.getWriter().write(resJson);
   }
-
 }
 

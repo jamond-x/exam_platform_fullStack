@@ -48,3 +48,11 @@ export async function verifyToken(token: string) {
     },
   });
 }
+
+export async function allUsers() {
+  return request<{ id: string }>({
+    method: 'POST',
+    url: '/admin/all-users',
+    data: {},
+  });
+}

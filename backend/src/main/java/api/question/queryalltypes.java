@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashSet;
 
-@WebServlet(name = "query-all-types", value = "/query-all-types")
+@WebServlet(name = "query-all-types", value = "/admin/query-all-types")
 public class queryalltypes extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

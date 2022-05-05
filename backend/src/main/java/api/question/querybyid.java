@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "query-all-id", value = "/query-by-id")
+@WebServlet(name = "query-all-id", value = "/admin/query-by-id")
 public class querybyid extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

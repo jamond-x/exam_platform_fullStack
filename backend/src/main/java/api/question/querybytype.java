@@ -11,7 +11,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashSet;
 
-@WebServlet(name = "query-by-type", value = "/query-by-type")
+@WebServlet(name = "query-by-type", value = "/admin/query-by-type")
 public class querybytype extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

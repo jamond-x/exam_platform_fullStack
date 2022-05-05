@@ -12,7 +12,7 @@ import javax.servlet.annotation.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-@WebServlet(name = "update-user-info", value = "/update-user-info")
+@WebServlet(name = "update-user-info", value = "/admin/update-user-info")
 public class updateuserinfo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashSet;
 
-@WebServlet(name = "all-users", value = "/all-users")
+@WebServlet(name = "all-users", value = "/admin/all-users")
 public class allusers extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
