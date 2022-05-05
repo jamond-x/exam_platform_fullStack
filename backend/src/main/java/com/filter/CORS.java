@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "CORS")
 public class CORS implements Filter {
   public void init(FilterConfig config) throws ServletException {
   }
@@ -32,11 +31,11 @@ public class CORS implements Filter {
     HttpServletRequest request1 = (HttpServletRequest) request;
 
 
-    String token = request1.getHeader("token");
-    if(!ProcessToken.verifyToken(token)){
-      response1.setStatus(401);
-      response1.getWriter().write(Restful.RestfulJson(Restful.CODE_ONE, "token失效，请重新登录！",null));
-    }
+//    String token = request1.getHeader("token");
+//    if(!ProcessToken.verifyToken(token)){
+//      response1.setStatus(401);
+//      response1.getWriter().write(Restful.RestfulJson(Restful.CODE_ONE, "token失效，请重新登录！",null));
+//    }
 
     response.setContentType("text/html;charset=UTF-8");
     response1.setHeader("Access-Control-Allow-Origin", "*");
@@ -46,7 +45,6 @@ public class CORS implements Filter {
     response1.setHeader("Access-Control-Allow-Credentials", "true");
 
     chain.doFilter(request1, response1);
-
 
   }
 }

@@ -38,11 +38,10 @@ public class Verify implements Filter {
       if(!urlSet.contains(url)){
         String token = rq.getHeader("token");
         System.out.println(token);
-        res.setHeader("Access-Control-Allow-Origin","http://localhost:8000");
         if(!ProcessToken.verifyToken(token)){
           res.setStatus(401);
           res.getWriter().write(Restful.RestfulJson(Restful.CODE_ONE, "token失效，请重新登录！",null));
-          return;
+//          return;
         }
       }
       chain.doFilter(rq, res);

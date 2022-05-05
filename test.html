@@ -10,7 +10,7 @@
   <body>
     <button onclick="one()">登录接口测试</button>
     <button onclick="two()">其他接口测试</button>
-
+    <button onclick="three()">token 测试</button>
     <script>
       function one() {
         axios
@@ -26,6 +26,21 @@
       function two() {
         axios
           .post('http://localhost:8080/api/admin/all-users')
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      // http://localhost:8080/api/admin/all-users
+      // http://localhost:8080/api/token/verify
+      function three() {
+        axios
+          .post('http://localhost:8080/api/admin/all-users', {
+            token:
+              'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEwMDEiLCJleHAiOjE2NDk5MDczNDh9.d62KDRTS5PO3ksioxkdMrgiNXcfDh93ibA5fi_myvkk',
+          })
           .then((res) => {
             console.log(res);
           })

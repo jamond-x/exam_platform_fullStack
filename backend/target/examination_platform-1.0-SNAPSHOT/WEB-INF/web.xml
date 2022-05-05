@@ -12,14 +12,14 @@
       <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-<!--    <filter>-->
-<!--      <filter-name>Verify</filter-name>-->
-<!--      <filter-class>com.filter.Verify</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--      <filter-name>Verify</filter-name>-->
-<!--      <url-pattern>/*</url-pattern>-->
-<!--    </filter-mapping>-->
+    <filter>
+      <filter-name>Verify</filter-name>
+      <filter-class>com.filter.Verify</filter-class>
+    </filter>
+    <filter-mapping>
+      <filter-name>Verify</filter-name>
+      <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 
 <!--    <filter>-->
