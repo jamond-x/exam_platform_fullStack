@@ -5,7 +5,7 @@ import type { Restful } from './types';
 export const createApi = (config: AxiosRequestConfig, headers?: AxiosRequestHeaders) => {
   return async function <T>(requestDetail: AxiosRequestConfig): Promise<Restful<T>> {
     // eslint-disable-next-line no-param-reassign
-    headers = { ...headers, token: '' };
+    headers = { ...headers };
     // 手动配置全局headers
     const instance = axios.create({
       ...config,
