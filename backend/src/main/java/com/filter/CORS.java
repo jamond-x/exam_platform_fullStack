@@ -19,7 +19,8 @@ public class CORS implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
     System.out.println("跨域的过滤器");
-
+    request.setCharacterEncoding("UTF-8");
+    response.setContentType("application/json;charset=utf-8");
     HttpServletResponse response1 = (HttpServletResponse) response;
     HttpServletRequest request1 = (HttpServletRequest) request;
 

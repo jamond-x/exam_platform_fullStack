@@ -48,6 +48,11 @@
     component: './user/Profile',
   },
   {
+    path: '/all-user',
+    name: 'admin',
+    component: './user/Profile/AllUser',
+  },
+  {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',

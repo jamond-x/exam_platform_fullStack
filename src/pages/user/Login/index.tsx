@@ -41,19 +41,12 @@ const Login: React.FC = () => {
 
   const fetchUserInfo = async () => {
     const userInfo: API.CurrentUser | undefined = await initialState?.fetchUserInfo?.();
-    console.log(userInfo);
-
     if (userInfo) {
       await setInitialState((s) => ({
         ...s,
         currentUser: userInfo,
       }));
-      console.log('设置成功！');
-      console.log(initialState?.currentUser);
     }
-
-    console.log('-----------after  get initial currentUser');
-    console.log(initialState?.currentUser);
   };
 
   const handleSubmit = async (values: API.LoginParams) => {

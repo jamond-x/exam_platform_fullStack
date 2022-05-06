@@ -3,7 +3,6 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Alert, Typography } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
 import styles from './Welcome.less';
-import { allUsers } from '@/services/request/api';
 
 const CodePreview: React.FC = ({ children }) => (
   <pre className={styles.pre}>
@@ -60,7 +59,6 @@ const Welcome: React.FC = () => {
         </Typography.Text>
         <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
       </Card>
-      <button onClick={allUsers}> 测试 </button>
     </PageContainer>
   );
 };

@@ -4,7 +4,9 @@ const request = createApi({
   baseURL: 'http://localhost:8080/api/',
 });
 
-console.log(window.localStorage.getItem('token'));
+export const getToken = () => {
+  return window.localStorage.getItem('token') || '';
+};
 
 // id: string, password: string
 export async function login_({ ...args }) {
@@ -18,7 +20,7 @@ export async function login_({ ...args }) {
       ...args,
     },
     headers: {
-      token: window.localStorage.getItem('token') || '',
+      token: getToken(),
     },
   });
 }
@@ -32,7 +34,7 @@ export async function login__(id: string, password: string) {
       password,
     },
     headers: {
-      token: window.localStorage.getItem('token') || '',
+      token: getToken(),
     },
   });
 }
@@ -45,7 +47,7 @@ export async function currentUser(id: string) {
       id,
     },
     headers: {
-      token: window.localStorage.getItem('token') || '',
+      token: getToken(),
     },
   });
 }
@@ -58,18 +60,37 @@ export async function verifyToken(token: string) {
       token,
     },
     headers: {
-      token: window.localStorage.getItem('token') || '',
+      token: getToken(),
     },
   });
 }
 
 export async function allUsers() {
-  return request<{ id: string }>({
+  return request<API.CurrentUser[]>({
     method: 'POST',
     url: '/admin/all-users',
     data: {},
     headers: {
-      token: window.localStorage.getItem('token') || '',
+      token: getToken(),
+    },
+  });
+}
+
+export async function updateInfo(info: {
+  id: string | undefined;
+  name: string;
+  description: string;
+  email: string;
+  gender: string | undefined;
+}) {
+  return request<API.CurrentUser>({
+    method: 'POST',
+    url: '/admin/update-user-info',
+    data: {
+      ...info,
+    },
+    headers: {
+      token: getToken(),
     },
   });
 }

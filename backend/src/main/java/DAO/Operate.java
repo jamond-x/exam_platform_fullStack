@@ -197,14 +197,21 @@ public class Operate implements APIUser {
       try{
         ResultSet res = this.statement.executeQuery();
         while(res.next()){
+          String id = res.getString("id");
+          String name = res.getString("name");
+          String gender = res.getString("gender");
+          String description = res.getString("description");
+          String avatar = res.getString("avatar");
+          String email = res.getString("email");
+          String admin = res.getString("admin");
           resSet.add(new User(
-            res.getString("id"),
-            res.getString("name"),
-            res.getString("gender"),
-            res.getString("description"),
-            res.getString("avatar"),
-            res.getString("email"),
-            res.getString("admin")
+            id == null ||id == ""? "未知": id ,
+            name == null || id == ""? "未知": name,
+            gender == null ||gender == ""? "未知": gender,
+            description == null || description == ""? "未知": description,
+            avatar == null ||avatar == ""? "未知": avatar,
+            email == null || email == ""? "未知":email,
+            admin == null || admin ==""? "未知": admin
           ));
         }
         return resSet;
