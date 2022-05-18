@@ -33,14 +33,7 @@ const AllUser: React.FC = () => {
     },
   ];
 
-  const run = () => {
-    console.log(2222);
-  };
-
   useEffect(() => {
-    console.log(111);
-    run();
-    // getAllUser();
     const getAllUser = async () => {
       const res = await allUsers();
       console.log(res);

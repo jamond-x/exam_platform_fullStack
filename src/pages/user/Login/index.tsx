@@ -52,18 +52,9 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      // const msg = await login_({ ...values, type });
       const msg: Restful<{ id: string; token: string }> = await login_({ ...values });
-
-      // if (msg.status === 'ok') {
-      console.log(msg);
-
       initialState?.setUserId?.(msg.data?.id as string);
-
       if (msg.code == 0) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-
-        // access.isLogin = true;
         window.localStorage.setItem('token', msg.data?.token as string);
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
@@ -76,7 +67,6 @@ const Login: React.FC = () => {
         const { query } = history.location;
         const { redirect } = query as { redirect: string };
         console.log(redirect);
-
         history.push('/');
         return;
       }

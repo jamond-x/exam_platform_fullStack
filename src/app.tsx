@@ -78,12 +78,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       const token = window.localStorage.getItem('token');
       // if  没有登录信息 且 不在登录页面
       // 跳转到登录页面
-
       if (!initialState?.currentUser && !token && location.pathname !== loginPath) {
         history.push(loginPath);
         return;
       }
-
       // if  有登录信息：账户信息 或 token
       // if  有账户信息 且 在登录页 那么跳转至欢迎页
       // if  没有账户信息 但有 token  那么自动验证token 有效去欢迎页 无则去登录页
