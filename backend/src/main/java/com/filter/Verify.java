@@ -35,7 +35,7 @@ public class Verify implements Filter {
       urlSet.add("/api/login");     // 只给这几个接口放行  其余的需要token并且有效
       urlSet.add("/api/register");
       urlSet.add("/api/tokenverify");
-
+      urlSet.add("/api/random-question");  // 测试 暂时添加
 //      HashSet<String> adminUrl = new HashSet<String>();
 //      adminUrl.add("/api/all-users");
 //      adminUrl.add("/api/add");

@@ -20,11 +20,13 @@ public class CORS implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
     System.out.println("跨域的过滤器");
     request.setCharacterEncoding("UTF-8");
-    response.setContentType("application/json;charset=utf-8");
+//    response.setContentType("application/json;charset=utf-8");
+    response.setContentType("application/x-javascript;charset=utf-8");
+
     HttpServletResponse response1 = (HttpServletResponse) response;
     HttpServletRequest request1 = (HttpServletRequest) request;
 
-    response.setContentType("text/html;charset=UTF-8");
+//    response.setContentType("text/html;charset=UTF-8");
     response1.setHeader("Access-Control-Allow-Origin", "*");
     response1.setHeader("Access-Control-Allow-Methods", "*");
     response1.setHeader("Access-Control-Max-Age", "3600");

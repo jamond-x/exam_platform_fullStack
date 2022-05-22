@@ -59,6 +59,12 @@
     component: './TableList',
   },
   {
+    name: 'recommend',
+    icon: 'table',
+    path: '/recommend',
+    component: './Goods/Recommend',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
