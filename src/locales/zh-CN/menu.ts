@@ -50,4 +50,5 @@ export default {
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
   'menu.recommend': '推荐商品',
+  'menu.store': '我的店铺',
 };

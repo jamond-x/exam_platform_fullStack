@@ -22,7 +22,6 @@ public class add extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     Goods goods = ParseRequest.get(request, Goods.class);
     String resJson = "";
-
     if(addSv.addGood(goods)){
       resJson = Restful.RestfulJson(Restful.CODE_ZERO,"添加成功！",null);
     }else{

@@ -65,6 +65,11 @@
     component: './Goods/Recommend',
   },
   {
+    name: 'store',
+    path: '/store',
+    component: './Goods/Store',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

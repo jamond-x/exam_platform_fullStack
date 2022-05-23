@@ -96,7 +96,7 @@ const Login: React.FC = () => {
           logo={
             <img
               alt="logo"
-              src="https://cdn.jsdelivr.net/gh/jamond-x/public-resources/svg/undraw_book_lover_re_rwjy.svg"
+              src="https://upyun.hokori.online/2022-05-23/1653288458-228063-03fblue-alphabg.png"
             />
           }
           title="精品黄金屋"

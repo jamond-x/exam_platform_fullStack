@@ -9,7 +9,6 @@ public class addSv {
     try{
       GoodsImp op = new GoodsImp();
       res = op.addGoods(goods);
-      System.out.println(res);
     }catch (Exception e){
       e.printStackTrace();
     }
