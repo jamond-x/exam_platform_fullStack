@@ -94,3 +94,14 @@ export async function updateInfo(info: {
     },
   });
 }
+
+export async function queryGoods() {
+  return request<API.Goods[]>({
+    method: 'POST',
+    url: '/goods/query',
+    data: {},
+    headers: {
+      token: getToken(),
+    },
+  });
+}

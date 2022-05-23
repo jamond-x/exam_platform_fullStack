@@ -99,9 +99,9 @@ const Login: React.FC = () => {
               src="https://cdn.jsdelivr.net/gh/jamond-x/public-resources/svg/undraw_book_lover_re_rwjy.svg"
             />
           }
-          title="紫沁山考试"
+          title="精品黄金屋"
           // subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
-          subTitle="现代考试智能解决方案"
+          subTitle="YES ONLINE！"
           initialValues={{
             autoLogin: true,
           }}

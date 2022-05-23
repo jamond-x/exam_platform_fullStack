@@ -26,6 +26,18 @@ declare namespace API {
     phone?: string;
   };
 
+  type Goods = {
+    name: string;
+    id: string;
+    description: string;
+    storeId: string;
+    price: number;
+    placeOfShipment: number;
+    brand: string;
+    imgUrl: string;
+    comment: string;
+  };
+
   // type LoginResult = {
   //   status?: string;
   //   type?: string;

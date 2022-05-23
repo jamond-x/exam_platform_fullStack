@@ -11,6 +11,12 @@ public class Goods {
   private  String comment;
   private int price;
 
+  public Goods(){}
+
+  public Goods(String id){
+    this.id = id;
+  }
+
   public Goods(String name, String id, String description, String storeId, int placeOfShipment, String brand, String imgUrl, String comment, int price) {
     this.name = name;
     this.id = id;

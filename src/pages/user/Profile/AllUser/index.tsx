@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table } from 'antd';
 import { allUsers } from '@/services/request/api';
-import { get } from 'lodash';
 
 const AllUser: React.FC = () => {
   const [tableData, setTableData] = useState<API.CurrentUser[] | undefined>(undefined);

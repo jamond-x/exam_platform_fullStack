@@ -1,6 +1,8 @@
 package api.goods;
 
-import entity.User;
+import service.goods.addSv;
+import entity.Goods;
+import utils.ParseRequest;
 import utils.Restful;
 
 import javax.servlet.*;
@@ -11,31 +13,21 @@ import java.io.IOException;
 
 @WebServlet(name = "goods/add", value = "/goods/add")
 public class add extends HttpServlet {
-//  @Override
-//  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//    doPost(request, response);
-//  }
-//
-//  @Override
-//  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//    Count count = ParseRequest.get(request, Count.class);
-//    String resJson = "";
-//    try{
-//      QuestionOP op = new QuestionOP();
-//      HashSet<Question> res = op.randomQuestion(count.getCount());
-//      if(res != null){
-//        resJson = Restful.RestfulJson(Restful.CODE_ZERO,"出题成功！",res);
-//      }else{
-//        resJson = Restful.RestfulJson(Restful.CODE_ONE,"出题失败！",null);
-//      }
-//    }catch (Exception e){
-//      e.printStackTrace();
-//      response.setStatus(500);
-//    }
-//    response.getWriter().write(resJson);
-//
-//
-//
-//
-//  }
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doPost(request, response);
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    Goods goods = ParseRequest.get(request, Goods.class);
+    String resJson = "";
+
+    if(addSv.addGood(goods)){
+      resJson = Restful.RestfulJson(Restful.CODE_ZERO,"添加成功！",null);
+    }else{
+      resJson = Restful.RestfulJson(Restful.CODE_ONE,"添加失败！",null);
+    }
+    response.getWriter().write(resJson);
+  }
 }
